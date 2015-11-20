@@ -3,6 +3,7 @@ class BlogpostsController < ApplicationController
 before_action :authenticate_user!
 
 	def index
+	   #@user = User.find(params[:user_id])
 	    @user = current_user
 		@blogposts = User.find(@user.id).blogposts
 		render "index"
@@ -26,7 +27,8 @@ before_action :authenticate_user!
 	
 	
 	def create
-		User.find(params[:user_id]).blogposts.create(blogpost_params)
+	    User.find(current_user).blogposts.create(blogpost_params)
+	#	User.find(params[:user_id]).blogposts.create(blogpost_params)
 		redirect_to user_blogposts_path
 	end
 	
